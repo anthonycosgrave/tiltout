@@ -1,13 +1,10 @@
+// Anthony Cosgrave
+// @anthonycosgrave
+// www.idoallmyowngames.com
+
 /**
- * Created with JetBrains WebStorm.
- * User: anthonycosgrave
- * Date: 19/06/2013
- * Time: 17:03
- * To change this template use File | Settings | File Templates.
- */
-/**
- *
- * @param appKey identifies this application.
+ * Create an StorageManager object.
+ * @param appKey identifies this application from anything else using localstorage.
  * @constructor
  */
 function StorageManager(appKey)
