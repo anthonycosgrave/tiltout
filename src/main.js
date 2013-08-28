@@ -1,3 +1,7 @@
+// Anthony Cosgrave
+// @anthonycosgrave
+// www.idoallmyowngames.com
+
 // tiltout - breakout clone using deviceorientation events.
 
 window.requestAnimFrame = function ()
@@ -13,7 +17,7 @@ window.requestAnimFrame = function ()
 }();
 
 var myGlobal = {};
-myGlobal.version = '0.9.9';
+myGlobal.version = '1.0';	// released into the wild!
 var assetManager = null;
 var storageManager = null;
 
@@ -293,7 +297,7 @@ var storageManager = null;
 	};
 
 	/**
-	 *
+	 * Play Sound effect. 
 	 * @param fx sound effect to play
 	 */
 	function playFX(fx)
