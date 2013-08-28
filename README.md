@@ -9,13 +9,13 @@ Tested in Safari and Chrome on the following devices:
 
   iOS6
 ---------
-iPhone 4
-iPhone 4S
-iPhone 5
-iPad 4
-iPad Mini
+iPhone 4,
+iPhone 4S,
+iPhone 5,
+iPad 4,
+and iPad Mini.
 
   Android
 -----------
-Samsung Galaxy S3
-HTC One
+Samsung Galaxy S3,
+and HTC One
