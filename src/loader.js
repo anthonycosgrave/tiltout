@@ -1,10 +1,7 @@
-/**
- * Created with JetBrains WebStorm.
- * User: anthonycosgrave
- * Date: 19/06/2013
- * Time: 12:43
- * To change this template use File | Settings | File Templates.
- */
+// Anthony Cosgrave
+// @anthonycosgrave
+// www.idoallmyowngames.com
+
 var ASSET_TYPE =
 {
 	IMAGE: 0,
@@ -40,7 +37,7 @@ function AssetManager()
 };
 
 /**
- *
+ * Adds an Asset to the download queue.
  * @param id
  * @param type
  * @param url
@@ -52,7 +49,7 @@ AssetManager.prototype.addToDownloadQueue = function (id, type, url)
 };
 
 /**
- *
+ * Returns an asset by id.
  * @param id
  * @return {*}
  */
@@ -70,7 +67,7 @@ AssetManager.prototype.getAssetByID = function (id)
 };
 
 /**
- *
+ * Returns TRUE if there were download errors, otherwise FALSE.
  * @return {Boolean}
  */
 AssetManager.prototype.hasErrors = function ()
@@ -79,7 +76,7 @@ AssetManager.prototype.hasErrors = function ()
 };
 
 /**
- *
+ * Returns the number of downloaded assets.
  * @return {Number}
  */
 AssetManager.prototype.getDownloadProgress = function ()
@@ -88,7 +85,7 @@ AssetManager.prototype.getDownloadProgress = function ()
 };
 
 /**
- *
+ * Returns TRUE if all items have downloaded, otherwise FALSE.
  * @return {Boolean}
  */
 AssetManager.prototype.isComplete = function ()
@@ -125,9 +122,6 @@ AssetManager.prototype.download = function ()
 	}
 };
 
-// using XMLHttpRequest object and returns an ArrayBuffer
-// add it to the assets to be accessed by ID
-// this.assets.push({snd.id, this.response});
 /**
  * Download sound asset and create a Buffer Source object for each one.
  * @param snd
@@ -148,15 +142,6 @@ AssetManager.prototype.downloadSound = function (snd)
 			var error = 'ASSETMANAGER.DOWNLOADSOUND(' + snd.url + ') XHR ERROR:: ' + e;
 			that.errors.push(error);
 		};
-		//            xhr.onprogress = function (e) {
-		//                // e is an XMLHttpProgressEvent
-		//                if (e.lengthComputable) {
-		//                    var progress = e.loaded / e.total;
-		//                    console.log('progress ' + progress);
-		//                }
-
-		//                console.log(e);
-		//            };
 
 		xhr.onload = function (e)
 		{
@@ -167,7 +152,7 @@ AssetManager.prototype.downloadSound = function (snd)
 				source = myGlobal.audioCtx.createBufferSource();
 				source.buffer = myGlobal.audioCtx.createBuffer(this.response, false);
 			}
-			that.assets.push({ id: snd.id, content: source});   // replace this.response with e.target?
+			that.assets.push({ id: snd.id, content: source});   
 			console.log('DOWNLOADED ' + snd.id);
 		};
 		xhr.send();
@@ -181,8 +166,8 @@ AssetManager.prototype.downloadSound = function (snd)
 };
 
 /**
- *
- * @param img
+ * Downloads img assets.
+ * @param img the name/url of the image to download.
  */
 AssetManager.prototype.downloadImage = function (img)
 {
