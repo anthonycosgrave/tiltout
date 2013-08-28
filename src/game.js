@@ -1,10 +1,8 @@
-/**
- * Created with JetBrains WebStorm.
- * User: anthonycosgrave
- * Date: 22/06/2013
- * Time: 15:51
- * To change this template use File | Settings | File Templates.
- */
+// Anthony Cosgrave
+// @anthonycosgrave
+// www.idoallmyowngames.com
+// don't read this you'll only judge me :P
+
 /**
  * Create a new instance of a Game.
  * @constructor
