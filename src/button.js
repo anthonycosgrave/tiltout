@@ -1,12 +1,8 @@
+// Anthony Cosgrave
+// @anthonycosgrave
+// www.idoallmyowngames.com
 /**
- * Created with JetBrains WebStorm.
- * User: anthonycosgrave
- * Date: 19/06/2013
- * Time: 10:26
- * To change this template use File | Settings | File Templates.
- */
-/**
- *
+ * Create an instance of a button object.
  * @param text
  * @param x
  * @param y
