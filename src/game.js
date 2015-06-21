@@ -24,6 +24,10 @@ function Game() {
     this.multiBallCount = 2;
     this.LEFT = 0;
     this.RIGHT = 1;
+    this.isShaking = false;
+    this.shake = false;
+    this.shakeInterval = null;
+    this.shakes = {x:0, y:0};
 };
 
 /**
@@ -57,7 +61,7 @@ Game.prototype.initPlayer = function() {
  */
 Game.prototype.initBall = function() {
     var ball = {};
-    ball.speedX = 2 * (myGlobal.scaleFactorX);
+    ball.speedX = 2 * (myGlobal.scaleFactorX) * ( (random(1,6) % 2 == 0) ? -1 : 1 );
     ball.speedY = 3 * (myGlobal.scaleFactorY);
     ball.radius = 5 * myGlobal.scaleFactorY;
     ball.x = (myGlobal.canvasWidth / 2) + (ball.radius / 4);
@@ -200,11 +204,8 @@ Game.prototype.updateBonus = function() {
 
         // change colours
         if (!this.isUpdatingBonusColour) {
-            var that = this;
             this.isUpdatingBonusColour = true;
-            setTimeout(function() {
-                strobeBonusColour(that)
-            }, 100);
+            setTimeout(this.strobeBonusColour.bind(this), 100);
         }
     }
     myGlobal.touchX = myGlobal.touchY = 0;
@@ -213,14 +214,14 @@ Game.prototype.updateBonus = function() {
 /**
  * Make the bonus look like it's flashing.
  */
-function strobeBonusColour(that) {
-    if (that.bonusColourIndex < that.bonusColours.length) {
-        that.bonusColourIndex++;
+Game.prototype.strobeBonusColour = function() {
+    if (this.bonusColourIndex < this.bonusColours.length) {
+        this.bonusColourIndex++;
     } else {
-        that.bonusColourIndex = 0;
+        this.bonusColourIndex = 0;
     }
 
-    that.isUpdatingBonusColour = false;
+    this.isUpdatingBonusColour = false;
 };
 
 /**
@@ -309,6 +310,14 @@ Game.prototype.checkForCollisions = function() {
                     var hitFX = assetManager.getAssetByID('break').content;
                     myGlobal.playFx(hitFX);
                     this.createExplosion(currentBall.x, currentBall.y, this.brickColours[row - 2], 'brick');
+                    /*
+                        Shake!!!
+                     */
+                    this.shake = true;
+                    this.shakes = {x:-2, y:-4};
+                    if (currentBall.x >= myGlobal.cvs.width/2) {
+                        this.shakes.x *= -1;
+                    }
 
                     if (this.score % 100 === 0) {
                         // increase speed
@@ -325,26 +334,51 @@ Game.prototype.checkForCollisions = function() {
 
             var ballFX = assetManager.getAssetByID('ball').content;
 
-            if ((currentBall.x + currentBall.speedX) + currentBall.radius > myGlobal.canvasWidth || (currentBall.x + currentBall.speedX) - currentBall.radius < 0) {
+            if ((currentBall.x + currentBall.speedX) + currentBall.radius > myGlobal.canvasWidth) {
                 currentBall.speedX = -currentBall.speedX;
                 this.createExplosion(currentBall.x + currentBall.radius, currentBall.y, '#FFF', 'ball');
                 myGlobal.playFx(ballFX);
+                /*
+                    Shake!!!
+                    right wall.
+                */
+               this.shake = true;
+               this.shakes = {x:random(3,4), y:0};
             } else if ((currentBall.x + currentBall.speedX) - currentBall.radius < 0) {
                 currentBall.speedX = -currentBall.speedX;
                 this.createExplosion(currentBall.x - currentBall.radius, currentBall.y, '#FFF', 'ball');
                 myGlobal.playFx(ballFX);
+                /*
+                    Shake!!!
+                    left wall.
+                */
+               this.shake = true;
+               this.shakes = {x:-(random(3,4)), y:0};
             }
 
             if ((currentBall.y + currentBall.speedY) - currentBall.radius < 0) {
                 this.createExplosion(currentBall.x, currentBall.y - currentBall.radius, '#FFF', 'ball');
                 currentBall.speedY = -currentBall.speedY;
                 myGlobal.playFx(ballFX);
+                /*
+                    Shake!!!
+                    roof...
+                */
+               this.shake = true;
+               this.shakes = {x:0, y:-4};
             } else if (currentBall.y + currentBall.radius > this.player.y && currentBall.x >= this.player.x && currentBall.x <= (this.player.x + this.player.width)) {
                 currentBall.speedX = 8 * ((currentBall.x - (this.player.x + this.player.width / 2)) / this.player.width);
                 currentBall.speedY = -currentBall.speedY;
                 this.createExplosion(currentBall.x, currentBall.y + currentBall.radius, '#FFF', 'ball');
                 myGlobal.playFx(ballFX);
+                /*
+                    Shake!!!
+                    paddle
+                */
+               this.shake = true;
+               this.shakes = {x:0, y:4};
             } else if (currentBall.y + currentBall.radius > this.player.y + (this.player.height * 3)) {
+                //currentBall.speedY = -currentBall.speedY;
                 this.balls.splice(i, 1);
 
                 if (this.balls.length === 0) // no balls left...
@@ -359,13 +393,24 @@ Game.prototype.checkForCollisions = function() {
                 }
             }
         }
-    } catch (e) {}
+    }
+    catch (e) {}
 };
 
 /**
  * Main rendering function.
  */
 Game.prototype.render = function() {
+
+    if (this.shake) {
+        // not very high tech...
+        if (!this.isShaking) {
+            this.isShaking = true;
+            myGlobal.ctx.save();
+            myGlobal.ctx.translate(this.shakes.x, this.shakes.y);
+            this.shakeInterval = setTimeout(function() { this.isShaking = false; myGlobal.ctx.restore(); this.shake=false;}.bind(this), 100);
+        }
+    }
     myGlobal.ctx.font = 30 * myGlobal.scaleFactorX + 'px VT323';
     myGlobal.ctx.fillStyle = '#FFF';
     myGlobal.ctx.fillText('SCORE: ' + this.score, 20, 20 * myGlobal.scaleFactorY);
