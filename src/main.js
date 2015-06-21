@@ -256,7 +256,8 @@ var storageManager = null;
                         Failed to set the 'buffer' property on 'AudioBufferSourceNode': The provided value is not of type 'AudioBuffer'.
 
                         Because it's now asynch, it won't wait to decode the audio before starting so if the music is saved as ON in
-                        settings it won't be available here right away. And so this no longer works:
+                        settings it won't be available here right away. And so this no longer works combined with the audio assets just
+                        being downloaded and decoded synchronously.
 
                         ost.source.buffer = ost.buffer;
 
