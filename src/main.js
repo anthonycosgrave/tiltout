@@ -107,7 +107,7 @@ var storageManager = null;
 
         // web audio.
         if ('webkitAudioContext' in window || 'AudioContext' in window) {
-            myGlobal.audioCtx = new webkitAudioContext() || AudioContext();
+            myGlobal.audioCtx = new AudioContext() || webkitAudioContext();
             myGlobal.hasAudioAPI = true;
         } else {
             //alert('Your browser does not support the Web Audio API. Audio is disabled.');
