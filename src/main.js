@@ -19,7 +19,7 @@ var assetManager = null;
 var storageManager = null;
 
 // "application" part
-(function() {
+var tiltOut = (function() {
     myGlobal.scaleFactorX = 0; // horizontal scaling
     myGlobal.scaleFactorY = 0; // vertical scaling
     myGlobal.hasAudioAPI = false;
