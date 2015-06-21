@@ -866,8 +866,8 @@ var tiltOut = (function() {
      */
     function render() {
         //noinspection SillyAssignmentJS
-        myGlobal.cvs.width = myGlobal.cvs.width;
-
+        // myGlobal.cvs.width = myGlobal.cvs.width;
+        myGlobal.ctx.clearRect(0, 0, myGlobal.cvs.width, myGlobal.cvs.height);
         switch (currentState) {
             case STATE.PLAY:
                 myGlobal.ctx.fillStyle = '#000';
