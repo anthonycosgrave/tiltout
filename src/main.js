@@ -248,18 +248,20 @@ var storageManager = null;
         if (myGlobal.hasAudioAPI) {
             if (!myGlobal.isMusicPlaying) {
                 try {
-                    /*
-                    	TypeError: Failed to set the 'buffer' property on 'AudioBufferSourceNode': The provided value is not of type 'AudioBuffer'.
-                    	    at TypeError (native)
-                    	    at playMusic (http://localhost:8888/games/dev/tiltout/src/main.js:285:24)
-                    	    at update (http://localhost:8888/games/dev/tiltout/src/main.js:968:7)
-                     */
-
                     ost.source = myGlobal.audioCtx.createBufferSource();
                     // ERROR PLAYING SOUNDTRACK myGlobal.audioCtx.createGainNode is not a function
                     // ost.gainNode = myGlobal.audioCtx.createGainNode();
                     ost.gainNode = myGlobal.audioCtx.createGain();
-                    ost.source.buffer = ost.buffer; // buffer will come from decoded audio file
+                    /*
+                        Failed to set the 'buffer' property on 'AudioBufferSourceNode': The provided value is not of type 'AudioBuffer'.
+
+                        Because it's now asynch, it won't wait to decode the audio before starting so if the music is saved as ON in
+                        settings it won't be available here right away. And so this no longer works:
+
+                        ost.source.buffer = ost.buffer;
+
+                    */
+                    ost.source.buffer = ost.buffer;
                     ost.source.loop = true;
                     ost.source.connect(ost.gainNode);
                     ost.gainNode.connect(myGlobal.audioCtx.destination);
