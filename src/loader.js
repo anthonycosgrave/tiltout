@@ -131,18 +131,22 @@ AssetManager.prototype.downloadSound = function(snd) {
             if (myGlobal.hasAudioAPI) {
                 // synchronous version of createBuffer is gone...
                 source = myGlobal.audioCtx.createBufferSource();
+                // can't use the synchronous call anymore:
                 // source.buffer = myGlobal.audioCtx.createBuffer(this.response, false);
+                // deemed potentially 'expensive' but worse would also block the the rest of the scripts
+                // on the code from running.
                 myGlobal.audioCtx.decodeAudioData(this.response, function onSuccess(decodedBuffer) {
                     // Decoding was successful, do something useful with the audio buffer
                     source.buffer = decodedBuffer;
+                    that.assets.push({
+                        id: snd.id,
+                        content: source
+                    });
+                    console.log('decoded ' + snd.id);
                 }, function onFailure() {
                     alert("Decoding the audio buffer failed");
                 });
             }
-            that.assets.push({
-                id: snd.id,
-                content: source
-            });
             console.log('DOWNLOADED ' + snd.id);
         };
         xhr.send();
