@@ -1,10 +1,10 @@
 var assets = [{
-    name: 'button',
-    url: 'snd/btn.wav',
-    type: ASSET_TYPE.SOUND
-}, {
     name: 'ost',
     url: 'snd/ost.mp3',
+    type: ASSET_TYPE.SOUND
+}, {
+    name: 'button',
+    url: 'snd/btn.wav',
     type: ASSET_TYPE.SOUND
 }, {
     name: 'ball',
