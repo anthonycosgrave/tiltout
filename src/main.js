@@ -74,7 +74,7 @@ var tiltOut = (function() {
     var isUpdatingHighScoreColour = false;
     var currentHighScoreColourIndex = 0;
     // "TAP TO START"
-    var tapToStartColours = ["#FF4000", "#FF8000", "#FFFF00"];
+    var tapToStartColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];//["#FF4000", "#FF8000", "#FFFF00"];
     var currentTapToStartIndex = 0;
     var isUpdatingTapToStartColour = false;
     // help
@@ -494,6 +494,10 @@ var tiltOut = (function() {
     function writeText(text, size, colour, x, y) {
         //size = 18;  // overriding here!
         myGlobal.ctx.save();
+        myGlobal.ctx.shadowOffsetX = 4;
+        myGlobal.ctx.shadowOffsetY = 6;
+        myGlobal.ctx.shadowBlur    = 4;
+        myGlobal.ctx.shadowColor   = "#333";  //or use rgb(red, green, blue)
         myGlobal.ctx.font = size + 'px VT323';
         myGlobal.ctx.fillStyle = colour;
         // want to scale the font...
@@ -870,7 +874,7 @@ var tiltOut = (function() {
         myGlobal.ctx.clearRect(0, 0, myGlobal.cvs.width, myGlobal.cvs.height);
         switch (currentState) {
             case STATE.PLAY:
-                myGlobal.ctx.fillStyle = '#000';
+                myGlobal.ctx.fillStyle = '#DDD';
                 myGlobal.ctx.fillRect(0, 0, myGlobal.canvasWidth, myGlobal.canvasHeight);
 
                 for (var i = 0; i < currentButtons.length; i++) {
