@@ -435,6 +435,16 @@ Game.prototype.drawBalls = function() {
         myGlobal.ctx.arc(this.balls[i].x, this.balls[i].y, this.balls[i].radius, 0, Math.PI * 2, true);
         myGlobal.ctx.closePath();
         myGlobal.ctx.fill();
+        myGlobal.ctx.save();
+        myGlobal.ctx.shadowColor = '#333';
+        myGlobal.ctx.shadowBlur = 6;
+        myGlobal.ctx.shadowOffsetX = 4;
+        myGlobal.ctx.shadowOffsetY = 6;
+        myGlobal.ctx.beginPath();
+        myGlobal.ctx.arc(this.balls[i].x, this.balls[i].y, this.balls[i].radius, 0, Math.PI * 2, true);
+        myGlobal.ctx.closePath();
+        myGlobal.ctx.fill();
+        myGlobal.ctx.restore();
     }
 };
 
@@ -444,6 +454,13 @@ Game.prototype.drawBalls = function() {
 Game.prototype.drawPlayer = function() {
     myGlobal.ctx.fillStyle = this.player.colour;
     myGlobal.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+    myGlobal.ctx.save();
+    myGlobal.ctx.shadowColor = '#333';
+    myGlobal.ctx.shadowBlur = 10;
+    myGlobal.ctx.shadowOffsetX = 10;
+    myGlobal.ctx.shadowOffsetY = 10;
+    myGlobal.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+    myGlobal.ctx.restore();
 };
 
 /**
@@ -456,8 +473,15 @@ Game.prototype.drawBricks = function() {
 
         for (var j = 0; j < this.brickCols; j++) {
             if (this.bricks[i][j] == 1) {
-                myGlobal.ctx.strokeStyle = '#FFF';
                 myGlobal.ctx.fillRect(this.brickWidth * j, (this.brickHeight * i) + (this.brickHeight * 2), this.brickWidth, this.brickHeight);
+                myGlobal.ctx.save();
+                myGlobal.ctx.shadowColor = '#333';
+                myGlobal.ctx.shadowBlur = 10;
+                myGlobal.ctx.shadowOffsetX = 10;
+                myGlobal.ctx.shadowOffsetY = 10;
+                myGlobal.ctx.fillRect(this.brickWidth * j, (this.brickHeight * i) + (this.brickHeight * 2), this.brickWidth, this.brickHeight);
+                myGlobal.ctx.restore();
+                myGlobal.ctx.strokeStyle = '#FFF';
                 myGlobal.ctx.strokeRect(this.brickWidth * j, (this.brickHeight * i) + (this.brickHeight * 2), this.brickWidth, this.brickHeight);
             }
         }
