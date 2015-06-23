@@ -74,13 +74,17 @@ var tiltOut = (function() {
     var isUpdatingHighScoreColour = false;
     var currentHighScoreColourIndex = 0;
     // "TAP TO START"
-    var tapToStartColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];//["#FF4000", "#FF8000", "#FFFF00"];
+    var tapToStartColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];
     var currentTapToStartIndex = 0;
     var isUpdatingTapToStartColour = false;
     // help
     var bonusColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];
     var currentHelpColourIndex = 0;
     var isUpdatingHelpColour = false;
+
+    var menuBackgroundColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];
+    var currentMenuBackgroundColourIndex = 0;
+    var isUpdatingMenuBackgroundColour = false;
 
     /**
      * Writes to console, but only when in "debug" mode
@@ -460,6 +464,19 @@ var tiltOut = (function() {
         isUpdatingHelpColour = false;
     };
 
+    var menuBackgroundColours = ["#FF4000", "#FF8000", "#FFFF00", "#40FF00", "#0040FF"];
+    var currentMenuBackgroundColourIndex = 0;
+    var isUpdatingMenuBackgroundColour = false;
+
+    function strobeMenuBackgroundColours() {
+        if (currentMenuBackgroundColourIndex < menuBackgroundColours.length) {
+            currentMenuBackgroundColourIndex++;
+        } else {
+            currentMenuBackgroundColourIndex = 0;
+        }
+        isUpdatingMenuBackgroundColour = false;
+    };
+
     /**
      * Setup coordinates, widths, heights, and scaleToViewPort accordingly.
      */
@@ -819,6 +836,12 @@ var tiltOut = (function() {
                         var ost = assetManager.getAssetByID('ost').content;
                         playMusic(ost);
                     }
+                    if (!isUpdatingMenuBackgroundColour) {
+                        isUpdatingMenuBackgroundColour = true;
+                        setTimeout(function() {
+                            strobeMenuBackgroundColours();
+                        }, 100);
+                    }
                     break;
                 case STATE.INSTRUCTIONS:
                     if (!isUpdatingHelpColour) {
@@ -914,7 +937,7 @@ var tiltOut = (function() {
 
                 break;
             case STATE.MENU:
-                myGlobal.ctx.fillStyle = '#000';
+                myGlobal.ctx.fillStyle = menuBackgroundColours[currentMenuBackgroundColourIndex];//'#000';
                 myGlobal.ctx.fillRect(0, 0, myGlobal.canvasWidth, myGlobal.canvasHeight);
 
                 writeText(title, 50, '#FFF', deltaTitleX, titleY);
