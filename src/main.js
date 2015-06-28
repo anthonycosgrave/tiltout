@@ -577,32 +577,31 @@ var tiltOut = (function() {
         myGlobal.beta = e.beta;
 
         // move menu items based on input.
-        if (currentState === STATE.MENU) {
-            // change ball colours.
-            if (Math.abs(myGlobal.beta - previousUIBeta) > betaUIThreshold) {
-                if (myGlobal.beta > 0) {
-                    if (window.orientation === 90) {
-                        // x++;
-                        deltaTitleX += (2 * myGlobal.scaleFactorX);
-                    } else {
-                        // the 'other' landscape
-                        // x--;
-                        deltaTitleX -= (2 * myGlobal.scaleFactorX);
-                    }
-                } else if (myGlobal.beta < 0) {
-                    if (window.orientation === 90) {
-                        // x--;
-                        deltaTitleX -= (2 * myGlobal.scaleFactorX);
-                    } else {
-                        // the 'other' landscape
-                        // x++;
-                        deltaTitleX += (2 * myGlobal.scaleFactorX);
-                    }
-                }
+        // if (currentState === STATE.MENU) {
+        //     if (Math.abs(myGlobal.beta - previousUIBeta) > betaUIThreshold) {
+        //         if (myGlobal.beta > 0) {
+        //             if (window.orientation === 90) {
+        //                 // x++;
+        //                 deltaTitleX += (2 * myGlobal.scaleFactorX);
+        //             } else {
+        //                 // the 'other' landscape
+        //                 // x--;
+        //                 deltaTitleX -= (2 * myGlobal.scaleFactorX);
+        //             }
+        //         } else if (myGlobal.beta < 0) {
+        //             if (window.orientation === 90) {
+        //                 // x--;
+        //                 deltaTitleX -= (2 * myGlobal.scaleFactorX);
+        //             } else {
+        //                 // the 'other' landscape
+        //                 // x++;
+        //                 deltaTitleX += (2 * myGlobal.scaleFactorX);
+        //             }
+        //         }
 
-                previousUIBeta = myGlobal.beta;
-            }
-        }
+        //         previousUIBeta = myGlobal.beta;
+        //     }
+        // }
     };
 
     /**
