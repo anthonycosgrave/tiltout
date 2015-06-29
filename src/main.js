@@ -110,8 +110,11 @@ var tiltOut = (function() {
         myGlobal.cvs.addEventListener('touchend', touchEnd, false);
 
         // web audio.
-        if ('webkitAudioContext' in window || 'AudioContext' in window) {
-            myGlobal.audioCtx = new AudioContext() || webkitAudioContext();
+        if ('webkitAudioContext' in window) {
+            myGlobal.audioCtx = new webkitAudioContext();
+            myGlobal.hasAudioAPI = true;
+        } else if ('AudioContext' in window) {
+            myGlobal.audioCtx = new AudioContext();
             myGlobal.hasAudioAPI = true;
         } else {
             //alert('Your browser does not support the Web Audio API. Audio is disabled.');
