@@ -411,12 +411,18 @@ Game.prototype.render = function() {
             this.shakeInterval = setTimeout(function() { this.isShaking = false; myGlobal.ctx.restore(); this.shake=false;}.bind(this), 100);
         }
     }
-    myGlobal.ctx.font = 30 * myGlobal.scaleFactorX + 'px VT323';
+    myGlobal.ctx.save();
+    myGlobal.ctx.shadowOffsetX = 4;
+    myGlobal.ctx.shadowOffsetY = 6;
+    myGlobal.ctx.shadowBlur    = 4;
+    myGlobal.ctx.shadowColor   = "#333";  //or use rgb(red, green, blue)
+    myGlobal.ctx.font = 24 * myGlobal.scaleFactorX + 'px VT323';
     myGlobal.ctx.fillStyle = '#FFF';
-    myGlobal.ctx.fillText('SCORE: ' + this.score, 20, 20 * myGlobal.scaleFactorY);
+    myGlobal.ctx.fillText('SCORE: ' + this.score, 20, 3 * myGlobal.scaleFactorY);
     var metrics = myGlobal.ctx.measureText('LIVES: ' + this.player.lives);
     var width = Math.round(metrics.width);
-    myGlobal.ctx.fillText('LIVES: ' + this.player.lives, myGlobal.canvasWidth - (width) - 20, 20 * myGlobal.scaleFactorY);
+    myGlobal.ctx.fillText('LIVES: ' + this.player.lives, myGlobal.canvasWidth - (width) - 20, 3 * myGlobal.scaleFactorY);
+    myGlobal.ctx.restore();
     this.drawParticles();
     this.drawBonuses();
     this.drawBalls();

@@ -48,11 +48,13 @@ var tiltOut = (function() {
     var playButton, helpButton, musicButton, fxButton, pauseButton, quitButton, backButton, okButton;
     var titleX = 0;
     var titleY = 0;
-    var playY = 80;//100;
+    var playY = 80;
     var buttonX = 0;
-    var instructionsY = 135;//160;
-    var musicY = 195;//220;
-    var fxY = 255;//280;
+    var instructionsY = 135;
+    var musicY = 195;
+    var fxY = 255;
+    var pauseScreenMusicY = 155;
+    var pauseScreenFXY = 210;
     var quitY = 100;
     var loadUnit; // this is the loading bar update step value
     var backY = 0;
@@ -168,7 +170,7 @@ var tiltOut = (function() {
         pauseButton.text = '> ';
 
         if (myGlobal.hasAudioAPI) {
-            currentButtons = [pauseButton, quitButton, musicButton, fxButton];
+            currentButtons = [pauseButton, quitButton, pauseScreenMusicButton, pauseScreenFXButton];
         } else {
             currentButtons = [pauseButton, quitButton];
         }
@@ -500,9 +502,11 @@ var tiltOut = (function() {
         helpButton = new Button('HELP', 'HELP', buttonX, instructionsY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
         musicButton = new Button('MUSIC', 'MUSIC ', buttonX, musicY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
         fxButton = new Button('FX', 'FX ', buttonX, fxY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
+        pauseScreenMusicButton = new Button('MUSIC', 'MUSIC ', buttonX, pauseScreenMusicY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
+        pauseScreenFXButton = new Button('FX', 'FX ', buttonX, pauseScreenFXY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
         quitButton = new Button('QUIT', 'QUIT GAME', buttonX, quitY * myGlobal.scaleFactorY, buttonWidth, buttonHeight, false);
         backButton = new Button('BACK', 'BACK', 10, backY, buttonWidth, buttonHeight, false);
-        pauseButton = new Button('PAUSE', '|| ', 10, myGlobal.canvasHeight - (10 * myGlobal.scaleFactorY), 50 * myGlobal.scaleFactorX, 50 * myGlobal.scaleFactorY, false);
+        pauseButton = new Button('PAUSE', '|| ', 10, myGlobal.canvasHeight - (35 * myGlobal.scaleFactorY), 50 * myGlobal.scaleFactorX, 50 * myGlobal.scaleFactorY, false);
         okButton = new Button('OK', 'OK', myGlobal.canvasWidth / 2, myGlobal.canvasHeight / 2, buttonWidth, buttonHeight, false);
     };
 
