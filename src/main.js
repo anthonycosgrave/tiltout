@@ -48,13 +48,12 @@ var tiltOut = (function() {
     var playButton, helpButton, musicButton, fxButton, pauseButton, quitButton, backButton, okButton;
     var titleX = 0;
     var titleY = 0;
-    var deltaTitleX = 0;
-    var playY = 100;
+    var playY = 80;//100;
     var buttonX = 0;
-    var instructionsY = 160;
-    var musicY = 220;
-    var fxY = 280;
-    var quitY = 160;
+    var instructionsY = 135;//160;
+    var musicY = 195;//220;
+    var fxY = 255;//280;
+    var quitY = 100;
     var loadUnit; // this is the loading bar update step value
     var backY = 0;
     var playedHighScoreSound = false;
@@ -488,8 +487,12 @@ var tiltOut = (function() {
         titleX = myGlobal.canvasWidth / 3;
         deltaTitleX = titleX;
         loadUnit = myGlobal.canvasWidth / assets.length;
-        titleY = 50 * myGlobal.scaleFactorY;
-        backY = myGlobal.canvasHeight - 25;
+        /*
+            Is scaleFactorY too high now - everything is further down the screen...
+
+         */
+        titleY = 10 * myGlobal.scaleFactorY;//50 * myGlobal.scaleFactorY;
+        backY = myGlobal.canvasHeight - 60; //25;
         // button width a 3rd of the canvas?
         var buttonWidth = myGlobal.canvasWidth / 3;
         var buttonHeight = 50 * myGlobal.scaleFactorY;
@@ -578,33 +581,6 @@ var tiltOut = (function() {
      */
     function devOrientHandler(e) {
         myGlobal.beta = e.beta;
-
-        // move menu items based on input.
-        // if (currentState === STATE.MENU) {
-        //     if (Math.abs(myGlobal.beta - previousUIBeta) > betaUIThreshold) {
-        //         if (myGlobal.beta > 0) {
-        //             if (window.orientation === 90) {
-        //                 // x++;
-        //                 deltaTitleX += (2 * myGlobal.scaleFactorX);
-        //             } else {
-        //                 // the 'other' landscape
-        //                 // x--;
-        //                 deltaTitleX -= (2 * myGlobal.scaleFactorX);
-        //             }
-        //         } else if (myGlobal.beta < 0) {
-        //             if (window.orientation === 90) {
-        //                 // x--;
-        //                 deltaTitleX -= (2 * myGlobal.scaleFactorX);
-        //             } else {
-        //                 // the 'other' landscape
-        //                 // x++;
-        //                 deltaTitleX += (2 * myGlobal.scaleFactorX);
-        //             }
-        //         }
-
-        //         previousUIBeta = myGlobal.beta;
-        //     }
-        // }
     };
 
     /**
@@ -842,7 +818,7 @@ var tiltOut = (function() {
                         isUpdatingMenuBackgroundColour = true;
                         setTimeout(function() {
                             strobeMenuBackgroundColours();
-                        }, 100);
+                        }, 500);
                     }
                     break;
                 case STATE.INSTRUCTIONS:
